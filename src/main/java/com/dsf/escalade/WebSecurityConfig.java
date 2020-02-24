@@ -1,6 +1,8 @@
 package com.dsf.escalade;
 
 
+import com.dsf.escalade.config.JwtAuthenticationEntryPoint;
+import com.dsf.escalade.config.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +11,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -23,30 +27,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       return new BCryptPasswordEncoder();
    }
 
+   @Autowired
+   private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
+
+   @Autowired
+   private JwtRequestFilter jwtRequestFilter;
+
    @Override
    protected void configure(HttpSecurity http) throws Exception {
-      http
-         .authorizeRequests()
-            .antMatchers("/**","/resources/**", "/login")
-            .permitAll()
-            .anyRequest()
-            .authenticated()
-            .and()
-         .formLogin()
-            .loginPage("/login")
-            .usernameParameter("email")
-            .permitAll()
-            .and()
-         .csrf()
-         .ignoringAntMatchers("/site/**","/topo/**","/sector/**","/voie/**","/longueur/**")//don't apply CSRF
-            .and()
-         .headers()
-            .frameOptions()
-            .sameOrigin()
-            .and()
-         .logout()
-            .logoutUrl("/logout")
-            .permitAll();
+      http.csrf().disable()
+         .authorizeRequests().antMatchers("/authenticate").permitAll()
+            .anyRequest().authenticated().and()
+            .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+      // Add a filter to validate the tokens with every request
+      http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
    }
 
    @Bean

@@ -19,5 +19,5 @@ WORKDIR /srv
 
 RUN sh -c 'touch escalade-rest.jar'
 EXPOSE 9191
-ENTRYPOINT ["java","-Djasypt.encryptor.password=Jasypt1418$","-jar","escalade-rest.jar"]
+ENTRYPOINT ["java","-Djasypt.encryptor.password=$JASYPT_ENCRYPTOR_SECRET","-jar","escalade-rest.jar"]
 

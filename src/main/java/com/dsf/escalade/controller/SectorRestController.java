@@ -1,4 +1,4 @@
-package com.dsf.escalade.restcontroller;
+package com.dsf.escalade.controller;
 
 import com.dsf.escalade.service.business.SectorService;
 import com.dsf.escalade.web.dto.SectorDto;
