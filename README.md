@@ -1,8 +1,8 @@
-# escalade
-Projet de site d'escalade
+# escalade-REST
+API REST du projet de site d'escalade
 
-[![Build Status](https://travis-ci.com/pedsf1968/escalade.svg?branch=master)](https://travis-ci.com/pedsf1968/escalade)
-![GitHub](https://img.shields.io/github/license/pedsf1968/escalade)
+[![Build Status](https://travis-ci.org/pedsf1968/escalade-rest.svg?branch=master)](https://travis-ci.org/pedsf1968/escalade-rest)
+![GitHub](https://img.shields.io/github/license/pedsf1968/escalade-rest)
 
 # Objet :
 Création d’un site communautaire autour de l’escalade.
