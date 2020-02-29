@@ -122,17 +122,6 @@
 			<version>0.9.1</version>
 		</dependency>
 
-		<!-- =============================================== STARTER THYMELEAF -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-			<version>${springboot-starter-version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.thymeleaf.extras</groupId>
-			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
-		</dependency>
 		<!-- ============================================= CLOUD STARTER CONFIG -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

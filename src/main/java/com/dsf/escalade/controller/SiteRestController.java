@@ -23,20 +23,22 @@ public class SiteRestController {
    }
 
 
-   @GetMapping("/site/get/{siteId}")
+   @GetMapping("/site/{siteId}")
    public ResponseEntity<SiteDto> getSite(@PathVariable("siteId") Integer siteId) {
 
       try(SiteDto siteDto = siteService.getOne(siteId)) {
+         log.info("GET:/site/" + siteId);
          return ResponseEntity.ok(siteDto);
       } catch (Exception e) {
          return ResponseEntity.notFound().build();
       }
    }
 
-   @GetMapping("/site/get/full/{siteId}")
+   @GetMapping("/site/full/{siteId}")
    public ResponseEntity<SiteFullDto> getSiteFull(@PathVariable("siteId") Integer siteId) {
 
       try (SiteFullDto siteFullDto = siteService.getFull(siteId)) {
+         log.info("GET:/site/full" + siteId);
          return ResponseEntity.ok(siteFullDto);
       } catch (Exception e) {
          return ResponseEntity.notFound().build();

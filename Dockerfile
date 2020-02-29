@@ -1,4 +1,7 @@
 #
+# escalade-rest : Dockerfile
+#
+#
 # Build stage
 #
 FROM maven:3.5.2-jdk-8-alpine AS build
@@ -19,5 +22,5 @@ WORKDIR /srv
 
 RUN sh -c 'touch escalade-rest.jar'
 EXPOSE 9191
-ENTRYPOINT ["java","-Djasypt.encryptor.password=$JASYPT_ENCRYPTOR_SECRET","-jar","escalade-rest.jar"]
+ENTRYPOINT ["java","-jar","escalade-rest.jar"]
 

@@ -20,31 +20,33 @@ public class SectorRestController {
    }
 
 
-   @GetMapping("/sector/get/{sectorId}")
+   @GetMapping("/sector/{sectorId}")
    public ResponseEntity<SectorDto> getSector(@PathVariable("sectorId") Integer sectorId) {
 
       try(SectorDto sectorDto = sectorService.getOne(sectorId)) {
+         log.info("GET:/sector/" + sectorId);
          return ResponseEntity.ok(sectorDto);
       } catch (Exception e) {
          return ResponseEntity.notFound().build();
       }
    }
 
-   @GetMapping("/sector/get/full/{sectorId}")
+   @GetMapping("/sector/full/{sectorId}")
    public ResponseEntity<SectorFullDto> getSectorFull(@PathVariable("sectorId") Integer sectorId) {
 
       try (SectorFullDto sectorFullDto = sectorService.getFull(sectorId)) {
+         log.info("GET:/sector/full/" + sectorId);
          return ResponseEntity.ok(sectorFullDto);
       } catch (Exception e) {
          return ResponseEntity.notFound().build();
       }
    }
 
-   @PostMapping(value="/sector/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+   @PostMapping(value="/sector", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
    public ResponseEntity<SectorDto> updateSector(@RequestBody SectorDto sectorDto) throws Exception {
 
       if(sectorDto!=null) {
-         log.info("/sector/update :" + sectorDto);
+         log.info("UPDATE:/sector/" + sectorDto);
          Integer sectorId = sectorService.save(sectorDto);
          sectorDto = sectorService.getOne(sectorId);
          return ResponseEntity.ok(sectorDto);
@@ -57,7 +59,7 @@ public class SectorRestController {
    public ResponseEntity<SectorFullDto> updateSectorFull(@RequestBody SectorFullDto sectorFullDto) throws Exception {
 
       if(sectorFullDto!=null) {
-         log.info("/sector/update/full :" + sectorFullDto);
+         log.info("UPDATE:/sector/full/" + sectorFullDto);
          Integer sectorId = sectorService.saveFull(sectorFullDto);
          sectorFullDto = sectorService.getFull(sectorId);
          return ResponseEntity.ok(sectorFullDto);

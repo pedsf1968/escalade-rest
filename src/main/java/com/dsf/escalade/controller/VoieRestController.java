@@ -20,30 +20,32 @@ public class VoieRestController {
    }
 
 
-   @GetMapping("/voie/get/{voieId}")
+   @GetMapping("/voie/{voieId}")
    public ResponseEntity<VoieDto> getVoie(@PathVariable("voieId") Integer voieId) {
 
       try (VoieDto voieDto = voieService.getOne(voieId)) {
+         log.info("GET:/voie/" + voieId);
          return ResponseEntity.ok(voieDto);
       } catch (Exception e) {
          return ResponseEntity.notFound().build();
       }
    }
 
-   @GetMapping("/voie/get/full/{voieId}")
+   @GetMapping("/voie/full/{voieId}")
    public ResponseEntity<VoieFullDto> getVoieFull(@PathVariable("voieId") Integer voieId) {
       try (VoieFullDto voieFullDto = voieService.getFull(voieId)) {
+         log.info("GET:/voie/full/" + voieId);
          return ResponseEntity.ok(voieFullDto);
       } catch (Exception e) {
          return ResponseEntity.notFound().build();
       }
    }
 
-   @PostMapping(value="/voie/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+   @PostMapping(value="/voie", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
    public ResponseEntity<VoieDto> updateVoie(@RequestBody VoieDto voieDto) throws Exception {
 
       if(voieDto!=null) {
-         log.info("/voie/update :" + voieDto);
+         log.info("UPDATE:/voie/" + voieDto);
          Integer voieId = voieService.save(voieDto);
          voieDto = voieService.getOne(voieId);
          return ResponseEntity.ok(voieDto);
@@ -52,11 +54,11 @@ public class VoieRestController {
       return ResponseEntity.notFound().build();
    }
 
-   @PostMapping(value="/voie/update/full", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+   @PostMapping(value="/voie/full", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
    public ResponseEntity<VoieFullDto> updateVoieFull(@RequestBody VoieFullDto voieFullDto) throws Exception {
 
       if(voieFullDto!=null) {
-         log.info("/voie/update/full :" + voieFullDto);
+         log.info("UPDATE:/voie/full/" + voieFullDto);
          Integer voieId = voieService.saveFull(voieFullDto);
          voieFullDto = voieService.getFull(voieId);
          return ResponseEntity.ok(voieFullDto);
