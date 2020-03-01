@@ -43,10 +43,18 @@ public class TopoRestController {
    }
 
    @PostMapping(value="/topo", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-   public ResponseEntity<TopoDto> updateTopo(@RequestBody TopoDto topoDto) throws Exception {
+   public ResponseEntity<TopoDto> updateTopo(@RequestBody TopoDto topoDto) {
 
       if(topoDto!=null) {
-         log.info("UPDATE:/topo/" + topoDto);
+         if(topoDto.getId()!=null) {
+            TopoDto oldTopoDto = topoService.getOne(topoDto.getId());
+            // verify that the user is the manager of the topo
+            if(Boolean.FALSE.equals(topoService.hasRight(oldTopoDto))){
+               log.error("UPDATE:/topo ERROR : no rights");
+               return ResponseEntity.badRequest().build();
+            }
+         }
+         log.info("UPDATE:/topo" + topoDto);
          Integer sectorId = topoService.save(topoDto);
          topoDto = topoService.getOne(sectorId);
          return ResponseEntity.ok(topoDto);
@@ -56,10 +64,18 @@ public class TopoRestController {
    }
 
    @PostMapping(value="/topo/full", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-   public ResponseEntity<TopoFullDto> updateTopoFull(@RequestBody TopoFullDto topoFullDto) throws Exception {
+   public ResponseEntity<TopoFullDto> updateTopoFull(@RequestBody TopoFullDto topoFullDto) {
 
       if(topoFullDto!=null) {
-         log.info("UPDATE:/topo/full/" + topoFullDto);
+         if(topoFullDto.getTopo().getId()!=null) {
+            TopoDto oldTopoDto = topoService.getOne(topoFullDto.getTopo().getId());
+            // verify that the user is the manager of the topo
+            if(Boolean.FALSE.equals(topoService.hasRight(oldTopoDto))){
+               log.error("UPDATE:/topo/full ERROR : no rights");
+               return ResponseEntity.badRequest().build();
+            }
+         }
+         log.info("UPDATE:/topo/full" + topoFullDto);
          Integer sectorId = topoService.saveFull(topoFullDto);
          topoFullDto = topoService.getFull(sectorId);
          return ResponseEntity.ok(topoFullDto);

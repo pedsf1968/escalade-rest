@@ -42,10 +42,18 @@ public class VoieRestController {
    }
 
    @PostMapping(value="/voie", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-   public ResponseEntity<VoieDto> updateVoie(@RequestBody VoieDto voieDto) throws Exception {
+   public ResponseEntity<VoieDto> updateVoie(@RequestBody VoieDto voieDto) {
 
       if(voieDto!=null) {
-         log.info("UPDATE:/voie/" + voieDto);
+         if(voieDto.getId()!=null) {
+            VoieDto oldVoieDto = voieService.getOne(voieDto.getId());
+            // verify that the user is the manager of the voie
+            if(Boolean.FALSE.equals(voieService.hasRight(oldVoieDto))){
+               log.error("UPDATE:/voie ERROR : no rights");
+               return ResponseEntity.badRequest().build();
+            }
+         }
+         log.info("UPDATE:/voie" + voieDto);
          Integer voieId = voieService.save(voieDto);
          voieDto = voieService.getOne(voieId);
          return ResponseEntity.ok(voieDto);
@@ -55,10 +63,18 @@ public class VoieRestController {
    }
 
    @PostMapping(value="/voie/full", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-   public ResponseEntity<VoieFullDto> updateVoieFull(@RequestBody VoieFullDto voieFullDto) throws Exception {
+   public ResponseEntity<VoieFullDto> updateVoieFull(@RequestBody VoieFullDto voieFullDto)  {
 
       if(voieFullDto!=null) {
-         log.info("UPDATE:/voie/full/" + voieFullDto);
+         if(voieFullDto.getVoie().getId()!=null) {
+            VoieDto oldVoieDto = voieService.getOne(voieFullDto.getVoie().getId());
+            // verify that the user is the manager of the voie
+            if(Boolean.FALSE.equals(voieService.hasRight(oldVoieDto))){
+               log.error("UPDATE:/voie/full ERROR : no rights");
+               return ResponseEntity.badRequest().build();
+            }
+         }
+         log.info("UPDATE:/voie/full" + voieFullDto);
          Integer voieId = voieService.saveFull(voieFullDto);
          voieFullDto = voieService.getFull(voieId);
          return ResponseEntity.ok(voieFullDto);
