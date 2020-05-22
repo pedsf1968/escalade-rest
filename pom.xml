@@ -40,6 +40,10 @@
 		<commons-io-version>2.6</commons-io-version>
 		<junit-jupiter-engine-version>5.6.0</junit-jupiter-engine-version>
 		<org-jetbrains-annotations-version>16.0.1</org-jetbrains-annotations-version>
+		<sonar.projectKey>pedsf1968_escalade-rest</sonar.projectKey>
+		<sonar.organization>pedsf1968</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.login>4eee9090ed6f334da04e670ac2b4b5b8f141e89e</sonar.login>
 	</properties>
 
 	<!-- ==================================================================== -->
@@ -72,6 +76,9 @@
 		</profile>
 	</profiles>
 
+	<!-- ==================================================================== -->
+	<!--                                                DEPENDENCY MANAGEMENT -->
+	<!-- ==================================================================== -->
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -83,6 +90,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
 
 	<!-- ==================================================================== -->
 	<!--                                                         DEPENDENCIES -->
@@ -143,7 +151,7 @@
 			<version>${springboot-starter-version}</version>
 		</dependency>
 
-			<!-- ================================================== STARTER JASYPT -->
+		<!-- ================================================== STARTER JASYPT -->
 		<dependency>
 			<groupId>com.github.ulisesbocchio</groupId>
 			<artifactId>jasypt-spring-boot-starter</artifactId>
@@ -232,7 +240,6 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
-
 
 	</dependencies>
 
