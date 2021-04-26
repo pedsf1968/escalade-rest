@@ -37,7 +37,7 @@
 		<spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
 		<jasypt-spring-boot-starter-version>2.0.0</jasypt-spring-boot-starter-version>
 		<spring-security-jwt-version>1.1.0.RELEASE</spring-security-jwt-version>
-		<commons-io-version>2.6</commons-io-version>
+		<commons-io-version>2.7</commons-io-version>
 		<junit-jupiter-engine-version>5.6.0</junit-jupiter-engine-version>
 		<org-jetbrains-annotations-version>16.0.1</org-jetbrains-annotations-version>
 		<sonar.projectKey>pedsf1968_escalade-rest</sonar.projectKey>
